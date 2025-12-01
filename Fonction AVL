@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct AVL{
+     int valeur ;
+     struct AVL * fg ;
+     struct AVL * fd ;
+     int equilbre ;
+} AVL 
+
+AVL* creeAVL(int e){
+     AVL* nouveau = malloc(sizeof(AVL));
+     if (nouveau == NULL){
+        exit(1);
+     }
+     nouveau->valeur = e ;
+     nouveau->fg = NULL ;
+     nouveau->fd = NULL ;
+     nouveau->equilibre = 0 ;
+     return nouveau ;
+}
