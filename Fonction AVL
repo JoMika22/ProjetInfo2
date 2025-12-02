@@ -19,3 +19,62 @@ AVL* creeAVL(int e){
      nouveau->equilibre = 0 ;
      return nouveau ;
 }
+
+AVL* rotationDroite(AVL* a){
+    AVL* b = a->fg;
+    a->fg = b->fd;
+    b->fd = a;
+return b ; 
+}
+
+AVL* rotationGauche(AVL* a){
+    AVL* b = a->fd;
+    a->fd = b->fg;
+    b->fg = a;
+return b ;
+}
+
+AVL* rotationDoubleGauche(AVL* a){
+    a->fd = rotationDroite(a->fd);
+    return rotationGauche(a);
+}
+
+AVL* rotationDoubleDroite(AVL* a){
+    a->fg = rotationGauche(a->fg);
+    return rotationDroite(a);
+}
+
+AVL* insereAVL(AVL* a, int e, int *h){
+    if (a == NULL){
+        *h = 1;
+        return creeAVL(e);
+    }
+
+    if (e < a->valeur){
+        a->fg = insereAVL(a->fg, e, h);
+        *h = -(*h);
+    }
+    else if (e > a->valeur){
+        a->fd = insereAVL(a->fd, e, h);
+    }
+    else {
+        *h = 0;
+        return a; // doublon
+    }
+
+    a->equilibre += *h;
+
+    
+    if (a->equilibre != 0){
+       a->equilibre += *h;
+    }
+    if (a->equilibre == 0){
+        *h = 0;
+        return a;
+    }
+
+Faire inserer et supprimer AVL et equilibre  :
+
+
+
+
