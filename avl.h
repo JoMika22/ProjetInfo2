@@ -3,8 +3,8 @@
 
 typedef struct {
     int id;
-    float capacity;
-    float consumption;
+    float capacité;
+    float consommation;
 } Station;
 
 typedef struct AVL {
