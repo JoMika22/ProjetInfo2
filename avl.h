@@ -3,7 +3,7 @@
 
 typedef struct {
     int id;
-    float capacité;
+    float capacite;
     float consommation;
 } Station;
 
