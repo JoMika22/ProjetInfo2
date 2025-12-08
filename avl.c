@@ -48,7 +48,7 @@ AVL* rotationDroite(AVL* a) {
     if (a->equilibre > 0) {
         pivot->equilibre = eq_p + a->equilibre + 1;
     } else {
-        pivot->equilibre = eq_p + 1; // + 0 + 1
+        pivot->equilibre = eq_p + 1;
     }
     return pivot;
 }
@@ -98,8 +98,8 @@ AVL* insereAVL(AVL* a, Station s, int *h){
         a->fd = insereAVL(a->fd, s, h);
     }
     else {
-        a->data.capacity += s.capacity;
-        a->data.consumption += s.consumption;
+        a->data.capacite += s.capacite;
+        a->data.consommation += s.consommation;
         *h = 0; 
         return a;
     }
