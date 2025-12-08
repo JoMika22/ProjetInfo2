@@ -73,6 +73,65 @@ AVL* insereAVL(AVL* a, int e, int *h){
         return a;
     }
 
+AVL* suppMinAVL(AVL* a, int *h, int *pe){
+    AVL* temp;
+    if(a->fg == NULL){                   
+        *pe = a->value; 
+        *h = -1;        
+        temp = a;
+        a = a->fd;
+        free(temp);
+        return a;
+    }
+    else{
+        a->fg = suppMinAVL(a->fg, h, pe);
+        *h = -*h;
+    }
+    if(*h != 0){
+        a->eq += *h;
+        a = equilibrerAVL(a);
+        *h = (a->eq == 0) ? -1 : 0;
+    }
+    return a;
+}
+
+AVL* suppressionAVL(AVL* a, int e, int *h)
+{
+    AVL* temp;
+    if (a == NULL){ 
+        *h = 0;
+        return a;
+    }
+    if(e > a->value){ 
+          a->fd = suppressionAVL(a->fd, e, h);
+    }
+    else if (e < a->value){
+        a->fg = suppressionAVL(a->fg, e, h);
+        *h = -*h;
+    }
+    else if (a->fd != NULL){ 
+        a->fd = suppMinAVL(a->fd, h, &(a->value));
+    }
+    else{ 
+        temp = a;
+        a = a->fg;
+        free(temp);
+        *h = -1;
+        return a;
+    }
+    if (a==NULL){
+        return a;
+    }
+    if (*h != 0){
+        a->eq += *h;
+        a = equilibrerAVL(a);
+        *h = (a->eq == 0) ? -1 : 0;
+    }
+    return a;
+}
+
+
+
 Faire inserer et supprimer AVL et equilibre  :
 
 
