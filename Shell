@@ -1,1 +1,8 @@
+myScript.sh <fichier_csv> histo max
+
+myScript.sh <fichier_csv> histo src
+
+myScript.sh <fichier_csv> histo real
+
+myScript.sh <fichier_csv> leaks <ID_usine>
 
