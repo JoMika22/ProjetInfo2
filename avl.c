@@ -115,3 +115,19 @@ AVL* insereAVL(AVL* a, Station s, int *h){
     }
     return a;
 }
+
+void traiterInfixe(AVL* a) {
+    if (a != NULL) {
+        traiterInfixe(a->fg);
+        printf("%d;%f;%f\n", a->data.id, a->data.capacity, a->data.consumption);
+        traiterInfixe(a->fd);
+    }
+}
+
+void libererAVL(AVL* a) {
+    if (a != NULL) {
+        libererAVL(a->fg);
+        libererAVL(a->fd);
+        free(a);
+    }
+}
