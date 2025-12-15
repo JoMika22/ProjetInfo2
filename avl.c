@@ -5,7 +5,7 @@
 AVL* creeAVL(Station s){
     AVL* nouveau = malloc(sizeof(AVL));
     if (nouveau == NULL){
-        perror("Erreur allocation mémoire");
+        printf("Erreur allocation mémoire");
         exit(1);
     }
     nouveau->data = s;
