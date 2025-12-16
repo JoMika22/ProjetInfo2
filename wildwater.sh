@@ -40,7 +40,7 @@ Commandes disponibles:
 
 Exemples:
   $0 data.csv histo max
-  $0 data.csv leaks "Facility complex #RH400057F"
+  $0 data.csv leaks "Facilite complexe #RH400057F"
 EOF
 }
 
@@ -64,12 +64,12 @@ if [ $# -lt 2 ]; then
     exit 1
 fi
 
-if [ ! -f "$CSV_FILE" ]; then
+if [ ! -f "$CSV_FICHIER" ]; then
     print_error "Fichier CSV introuvable: $CSV_FILE"
     exit 1
 fi
 
-case "$COMMAND" in
+case "$COMMANDE" in
     histo)
         if [ -z "$PARAM" ]; then
             print_error "Commande 'histo' requiert un paramètre (max|src|real|all)"
@@ -94,7 +94,7 @@ case "$COMMAND" in
         fi
         ;;
     *)
-        print_error "Commande inconnue: $COMMAND"
+        print_error "Commande inconnue: $COMMANDE"
         print_usage
         exit 1
         ;;
@@ -136,11 +136,11 @@ print_success "Compilation réussie"
 
 print_info "Exécution du programme..."
 
-if [ "$COMMAND" = "histo" ]; then
-    ./wildwater "$CSV_FILE" "$COMMAND" "$PARAM"
+if [ "$COMMANDE" = "histo" ]; then
+    ./wildwater "$CSV_FICHIER" "$COMMANDE" "$PARAM"
     RESULT=$?
 else
-    ./wildwater "$CSV_FILE" "$COMMAND" "$PARAM"
+    ./wildwater "$CSV_FICHIER" "$COMMANDE" "$PARAM"
     RESULT=$?
 fi
 
