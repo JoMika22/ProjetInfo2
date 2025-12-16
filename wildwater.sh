@@ -2,29 +2,29 @@
 
 
 # Couleurs pour les messages
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+ROUGE='\033[0;31m'
+VERT='\033[0;32m'
+JAUNE='\033[1;33m'
+NC='\033[0m'
 
 # Variables globales
-START_TIME=$(date +%s%N)
-CSV_FILE="$1"
-COMMAND="$2"
+DEBUT=$(date +%s%N)
+CSV_FICHIER="$1"
+COMMANDE="$2"
 PARAM="$3"
 
 
 
 print_error() {
-    echo -e "${RED}❌ ERREUR: $1${NC}" >&2
+    echo -e "${ROUGE}❌ ERREUR: $1${NC}" >&2
 }
 
 print_success() {
-    echo -e "${GREEN}✅ $1${NC}"
+    echo -e "${VERT}✅ $1${NC}"
 }
 
 print_info() {
-    echo -e "${YELLOW}ℹ️  $1${NC}"
+    echo -e "${JAUNE}ℹ️  $1${NC}"
 }
 
 print_usage() {
@@ -45,7 +45,7 @@ EOF
 }
 
 elapsed_time() {
-    END_TIME=$(date +%s%N)
+    FIN=$(date +%s%N)
     ELAPSED=$(( (END_TIME - START_TIME) / 1000000 ))
     echo "Temps écoulé : ${ELAPSED} ms"
 }
