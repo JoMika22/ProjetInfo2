@@ -49,7 +49,7 @@ int lireLigneSuivante(FILE* fichier, Station* s) {
     // CAS 1 : Définition d'usine (col3 est "-")
     if (col3 != NULL && strcmp(col3, "-") == 0) {
         s->id = extraireID(col2);
-        s->capacite = atol(col4); // atol = ascii to long
+        s->capacite = atof(col4);
         return 1;
     }
 
@@ -57,17 +57,17 @@ int lireLigneSuivante(FILE* fichier, Station* s) {
     else if (col3 != NULL && strcmp(col3, "-") != 0) {
         if (strstr(col3, "Station") != NULL) {
             s->id = extraireID(col3);
-            s->consommation = atol(col4);
+            s->consommation = atof(col4);
             return 1;
         }
         if (strstr(col3, "Facility") != NULL) {
             s->id = extraireID(col3);
-            s->consommation = atol(col4);
+            s->consommation = atof(col4);
             return 1;
         }
         if (strstr(col3, "Plant") != NULL) {
             s->id = extraireID(col3);
-            s->consommation = atol(col4);
+            s->consommation = atof(col4);
             return 1;
         }
     }
