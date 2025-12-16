@@ -1,10 +1,5 @@
 #!/bin/bash
 
-################################################################################
-# SCRIPT SHELL - WildWater
-# Point d'entrée du projet
-# Gère les arguments, la compilation C, et l'appel au programme
-################################################################################
 
 # Couleurs pour les messages
 RED='\033[0;31m'
@@ -18,9 +13,7 @@ CSV_FILE="$1"
 COMMAND="$2"
 PARAM="$3"
 
-################################################################################
-# FONCTIONS UTILITAIRES
-################################################################################
+
 
 print_error() {
     echo -e "${RED}❌ ERREUR: $1${NC}" >&2
@@ -63,9 +56,7 @@ cleanup_on_exit() {
 
 trap cleanup_on_exit EXIT
 
-################################################################################
-# VALIDATION DES ARGUMENTS
-################################################################################
+
 
 if [ $# -lt 2 ]; then
     print_error "Nombre d'arguments insuffisant"
@@ -109,15 +100,13 @@ case "$COMMAND" in
         ;;
 esac
 
-# Vérifier les arguments supplémentaires non attendus
+
 if [ $# -gt 3 ]; then
     print_error "Arguments supplémentaires inattendus"
     exit 1
 fi
 
-################################################################################
-# COMPILATION
-################################################################################
+
 
 print_info "Vérification de la compilation..."
 
@@ -126,7 +115,7 @@ if [ ! -f "Makefile" ]; then
     exit 1
 fi
 
-# Compiler le projet
+
 make > /dev/null 2>&1
 MAKE_RESULT=$?
 
@@ -143,9 +132,7 @@ fi
 
 print_success "Compilation réussie"
 
-################################################################################
-# EXÉCUTION DU PROGRAMME C
-################################################################################
+
 
 print_info "Exécution du programme..."
 
