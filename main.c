@@ -11,25 +11,35 @@ static int process_leaks(const char *csv, const char *plant_id);
 
 // Helper : tester si ID est une source
 static int is_source(const char *id) {
-    if (!id) return 0;
-    return strstr(id, "Spring #") == id || 
-           strstr(id, "Source #") == id ||
-           strstr(id, "Well #") == id ||
-           strstr(id, "Resurgence #") == id ||
-           strstr(id, "Fountain #") == id ||
-           strstr(id, "Catchment basin #") == id ||
-           strstr(id, "Pond #") == id ||
-           strstr(id, "Intake #") == id ||
-           strstr(id, "Borehole #") == id;
+    if (id == NULL) {
+        return 0;
+    }
+    
+    if (strstr(id, "Spring #") == id) return 1;
+    if (strstr(id, "Source #") == id) return 1;
+    if (strstr(id, "Well #") == id) return 1;
+    if (strstr(id, "Resurgence #") == id) return 1;
+    if (strstr(id, "Fountain #") == id) return 1;
+    if (strstr(id, "Catchment basin #") == id) return 1;
+    if (strstr(id, "Pond #") == id) return 1;
+    if (strstr(id, "Intake #") == id) return 1;
+    if (strstr(id, "Borehole #") == id) return 1;
+    
+    return 0;
 }
 
 // Helper : tester si ID est une usine
 static int is_plant(const char *id) {
-    if (!id) return 0;
-    return strstr(id, "Facility complex #") == id ||
-           strstr(id, "Plant #") == id ||
-           strstr(id, "Module #") == id ||
-           strstr(id, "Unit #") == id;
+    if (id == NULL) {
+        return 0;
+    }
+    
+    if (strstr(id, "Facility complex #") == id) return 1;
+    if (strstr(id, "Plant #") == id) return 1;
+    if (strstr(id, "Module #") == id) return 1;
+    if (strstr(id, "Unit #") == id) return 1;
+    
+    return 0;
 }
 
 // Structure pour stocker les volumes
@@ -44,14 +54,23 @@ int collect_histo(Segment *seg, void *userdata) {
     AVLNode **avl = (AVLNode**)userdata;
     
     // Ligne usine
-    if (is_plant(seg->upstream_id) && !seg->downstream_id && seg->volume > 0) {
+    if (is_plant(seg->upstream_id) && seg->downstream_id == NULL && seg->volume > 0) {
         AVLNode *found = avl_find(*avl, seg->upstream_id, cmp_str);
-        PlantData *pd = found ? (PlantData*)found->value : calloc(1, sizeof(PlantData));
-        if (!pd) return 1;
+        PlantData *pd;
+        
+        if (found != NULL) {
+            pd = (PlantData*)found->value;
+        } else {
+            pd = calloc(1, sizeof(PlantData));
+        }
+        
+        if (pd == NULL) {
+            return 1;
+        }
         
         pd->max_capacity = seg->volume;
         
-        if (!found) {
+        if (found == NULL) {
             *avl = avl_insert(*avl, seg->upstream_id, pd, cmp_str);
         }
         return 0;
@@ -60,14 +79,23 @@ int collect_histo(Segment *seg, void *userdata) {
     // Ligne source -> usine (captage)
     if (is_source(seg->upstream_id) && is_plant(seg->downstream_id) && seg->volume > 0) {
         AVLNode *found = avl_find(*avl, seg->downstream_id, cmp_str);
-        PlantData *pd = found ? (PlantData*)found->value : calloc(1, sizeof(PlantData));
-        if (!pd) return 1;
+        PlantData *pd;
         
-        pd->source_volume += seg->volume;
+        if (found != NULL) {
+            pd = (PlantData*)found->value;
+        } else {
+            pd = calloc(1, sizeof(PlantData));
+        }
+        
+        if (pd == NULL) {
+            return 1;
+        }
+        
+        pd->source_volume = pd->source_volume + seg->volume;
         double leak_pct = seg->leakage / 100.0;
-        pd->real_volume += seg->volume * (1.0 - leak_pct);
+        pd->real_volume = pd->real_volume + (seg->volume * (1.0 - leak_pct));
         
-        if (!found) {
+        if (found == NULL) {
             *avl = avl_insert(*avl, seg->downstream_id, pd, cmp_str);
         }
         return 0;
@@ -144,7 +172,7 @@ static int process_histo(const char *csv, const char *option) {
     
     // Écrire fichier
     FILE *fout = fopen(outname, "w");
-    if (!fout) {
+    if (fout == NULL) {
         fprintf(stderr, "Erreur: impossible d'ouvrir %s\n", outname);
         avl_free(plants_avl, free);
         return 2;
