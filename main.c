@@ -1,5 +1,4 @@
 #include "parser.h"
-#include "network.h"
 #include "avl.h"
 #include "utils.h"
 #include <stdio.h>
