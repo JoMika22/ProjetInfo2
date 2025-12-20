@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Dans le cadre de notre projet le parsing est l'action de lire et découper chaque ligne du fichier CSV selon le caractère ';' 
+// pour extraire les identifiants et les volumes afin de les transformer en données exploitables par notre programme C.
+
+
 // Allouer et remplir un segment
 Segment* new_segment() {
     Segment *seg = calloc(1, sizeof(Segment));
