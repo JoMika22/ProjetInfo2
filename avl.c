@@ -67,7 +67,7 @@ static int get_balance(AVLNode *node) {
 
 // Insère une clé et une valeur dans l'arbre AVL
 AVLNode* avl_insert(AVLNode *node, const char *key, void *value, int (*cmp)(const char*, const char*)) {
-    // Insertion standard d'un BST
+    // Insertion standard d'un AVL
     if (node == NULL) {
         return new_node(key, value);
     }
