@@ -38,12 +38,12 @@ Segment* parse_csv_segment(const char *line) {
     int col = 0;
     
     while (token != NULL && col < 5) {
-        // Trim whitespace au début
+        // Ignorer les espaces vides présents au début de la donnée.
         while (*token == ' ') {
             token = token + 1;
         }
         
-        // Trim whitespace à la fin
+        // Ignorer les espaces vides présents à la fin de la donnée.
         char *end = token + strlen(token) - 1;
         while (end >= token && *end == ' ') {
             *end = '\0';
