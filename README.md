@@ -13,10 +13,9 @@ Le dépôt contient les fichiers suivants:
 - **Makefile** : Outil permettant la compilation automatisée du programme C.
 - **Fichiers source en C** :
   - `main.c` : Point d'entrée du programme et gestion des arguments.
-  - `parser.c` : Analyse du fichier CSV et conversion des données textuelles en structures utilisables.
+  - `parser.c` / `parser.h` : Analyse du fichier CSV et conversion des données textuelles en structures utilisables.
   - `avl.c` / `avl.h` : Implémentation des arbres équilibrés (AVL) pour garantir une recherche rapide en O(log n).
-  - `arbre.c` / `arbre.h` : Gestion de la structure du réseau (arbre à nombre d'enfants variable).
-- **tests/** : Dossier regroupant les résultats d'exécution, incluant les images PNG et les fichiers de données.
+  - `utils.c` / `utils.h` : Fonctions utilitaires diverses (gestion mémoire, chaînes de caractères).
 
 ---
 
@@ -75,9 +74,15 @@ Le programme traite des fichiers CSV structurés en 5 colonnes séparées par de
 
 ```text
 ProjetInfo2/
-├── src/                # Code source (.c)
-├── include/            # En-têtes (.h)
-├── tests/              # Résultats d'exécution (PNG, .dat)
+├── src/
+│   ├── main.c          # Programme principal
+│   ├── parser.c        # Lecture CSV
+│   ├── avl.c           # Structure de données AVL
+│   └── utils.c         # Fonctions utilitaires
+├── include/
+│   ├── parser.h        # En-têtes parser
+│   ├── avl.h           # En-têtes AVL
+│   └── utils.h         # En-têtes utilitaires
 ├── Makefile            # Script de compilation
 ├── myScript.sh         # Script de pilotage Shell
 └── README.md           # Documentation
