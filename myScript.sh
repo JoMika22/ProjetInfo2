@@ -58,7 +58,7 @@ case "$CMD" in
     (head -n 1 "$HISTO_OUT" && tail -n +2 "$HISTO_OUT" | sort -t';' -k2,2nr | head -n 10) > __top10.tmp
     # Extraire les 50 plus petites (hors header)
     (head -n 1 "$HISTO_OUT" && tail -n +2 "$HISTO_OUT" | sort -t';' -k2,2n | head -n 50) > __bottom50.tmp
-    # Gnuplot top 10
+    # Gnuplot les 10 plus grandes
     gnuplot -persist <<EOF
 set terminal pngcairo size 1366,768 enhanced font 'Arial,14'
 set output "$OUT_TOP"
@@ -73,7 +73,7 @@ set ylabel "$YLABEL"
 set xlabel "Identifiants usines"
 plot "__top10.tmp" using 2:xtic(1) title columnheader(2) lc rgb "#4F81BD"
 EOF
-    # Gnuplot bottom 50
+    # Gnuplot les 50 plus petites
     gnuplot -persist <<EOF
 set terminal pngcairo size 1366,768 enhanced font 'Arial,14'
 set output "$OUT_BOT"
