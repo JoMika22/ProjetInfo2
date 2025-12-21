@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -O2 -g
-SRC=src/main.c src/avl.c src/network.c src/parser.c src/utils.c
+SRC=main.c avl.c network.c parser.c utils.c
 OBJ=$(SRC:.c=.o)
 EXEC=wildwater
 
