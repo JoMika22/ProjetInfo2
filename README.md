@@ -1,25 +1,28 @@
-# 🌊 Projet C-WildWater
+# Projet C-WildWater
 
-Ce projet permet de réaliser la synthèse de données d’un système de distribution d’eau potable à partir d'un fichier CSV volumineux. Il combine un script Shell pour la coordination des différentes étapes et un programme en C optimisé pour le traitement de millions de lignes.
+Ce projet permet de réaliser la synthèse de données d’un système de distribution d’eau potable à partir d'un fichier CSV volumineux. Il combine un script Shell pour le **pilotage** des étapes et un programme en C optimisé pour le traitement de millions de lignes.
 
 ---
 
-## 📂 Contenu du projet
+## Contenu du projet
 
-Le dépôt contient les fichiers suivants:
+Le dépôt contient les fichiers suivants :
 
 - **README.md** : Documentation complète du projet.
 - **myScript.sh** : Point d'entrée principal qui coordonne les calculs et la génération des graphiques.
+- **gengraph.sh** : Script utilitaire pour générer les histogrammes PNG à partir d'un fichier de données `.dat`.
 - **Makefile** : Outil permettant la compilation automatisée du programme C.
 - **Fichiers source en C** :
   - `main.c` : Point d'entrée du programme et gestion des arguments.
   - `parser.c` / `parser.h` : Analyse du fichier CSV et conversion des données textuelles en structures utilisables.
   - `avl.c` / `avl.h` : Implémentation des arbres équilibrés (AVL) pour garantir une recherche rapide en O(log n).
-  - `utils.c` / `utils.h` : Fonctions utilitaires diverses (gestion mémoire, chaînes de caractères).
+  - `network.c` / `network.h` : Structures de données définissant les composants du réseau (Tronçons, Usines, Nœuds).
+  - `utils.c` / `utils.h` : Fonctions utilitaires (comparaison de chaînes, gestion mémoire sécurisée).
+- **tests/** : Dossier regroupant les résultats d'exécution, incluant les images PNG et les fichiers de données.
 
 ---
 
-## 🛠️ Installation & Compilation
+## Installation & Compilation
 
 1. **Cloner le dépôt** :
    ```bash
@@ -28,14 +31,14 @@ Le dépôt contient les fichiers suivants:
    ```
 
 2. **Compilation** :
-   La compilation est gérée par le `Makefile`. Le script Shell vérifie automatiquement la présence de l'exécutable et lance la compilation si nécessaire via l'appel à `make`:
+   La compilation est gérée par le `Makefile`. Le script Shell vérifie automatiquement la présence de l'exécutable (`wildwater`) et lance la compilation si nécessaire via l'appel à `make` :
    ```bash
    make
    ```
 
 ---
 
-## 🚀 Utilisation
+## Utilisation
 
 Le script `myScript.sh` accepte deux types de traitements principaux :
 
@@ -54,9 +57,16 @@ Calcule le volume total d'eau perdu sur l'ensemble du réseau en aval d'une usin
 ./myScript.sh <fichier.csv> leaks "<Identifiant_Usine>"
 ```
 
+### 3. Génération manuelle de graphiques
+Si vous disposez déjà d'un fichier de données extrait, vous pouvez utiliser le script dédié :
+
+```bash
+./gengraph.sh <fichier_donnees.dat>
+```
+
 ---
 
-## 📊 Format des données
+## Format des données
 
 Le programme traite des fichiers CSV structurés en 5 colonnes séparées par des points-virgules :
 
@@ -70,29 +80,31 @@ Le programme traite des fichiers CSV structurés en 5 colonnes séparées par de
 
 ---
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```text
 ProjetInfo2/
-├── src/
-│   ├── main.c          # Programme principal
-│   ├── parser.c        # Lecture CSV
-│   ├── avl.c           # Structure de données AVL
-│   └── utils.c         # Fonctions utilitaires
-├── include/
-│   ├── parser.h        # En-têtes parser
-│   ├── avl.h           # En-têtes AVL
-│   └── utils.h         # En-têtes utilitaires
+├── src/                # Code source (.c)
+│   ├── main.c
+│   ├── parser.c
+│   ├── avl.c
+│   ├── network.c
+│   └── utils.c
+├── include/            # En-têtes (.h)
+│   ├── parser.h
+│   ├── avl.h
+│   ├── network.h
+│   └── utils.h
+├── tests/              # Résultats d'exécution (PNG, .dat)
 ├── Makefile            # Script de compilation
 ├── myScript.sh         # Script de pilotage Shell
+├── gengraph.sh         # Générateur de graphiques
 └── README.md           # Documentation
 ```
 
 ---
 
-## 👥 Auteurs
-
-Projet réalisé dans le cadre de la filière **preING2 (2025-2026)** à **CY Tech**.
+##  Auteurs
 
 - BOTNARI Alexandru
 - TAKHIM Rayan
